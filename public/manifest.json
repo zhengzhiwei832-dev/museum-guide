@@ -1,0 +1,18 @@
+{
+  "name": "博物馆漫步 · Museum Stroll",
+  "short_name": "博物馆漫步",
+  "description": "探索世界顶级博物馆，发现艺术与文明的奇迹",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FAF8F5",
+  "theme_color": "#FAF8F5",
+  "icons": [
+    {
+      "src": "/icon-180.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

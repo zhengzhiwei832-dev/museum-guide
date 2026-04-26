@@ -1,13 +1,16 @@
 import { HashRouter, Routes, Route } from 'react-router-dom';
+import { GuidePreferenceProvider } from './context/GuidePreferenceContext';
 import HomePage from './pages/HomePage';
 import ModeSelect from './pages/ModeSelect';
 import PreTripGuide from './pages/PreTripGuide';
 import OnSiteGuide from './pages/OnSiteGuide';
 import ExploreMode from './pages/ExploreMode';
 import SmartRoute from './pages/SmartRoute';
+import ExhibitDetail from './pages/ExhibitDetail';
 
 export default function App() {
   return (
+    <GuidePreferenceProvider>
     <HashRouter>
       {/* Landscape orientation warning */}
       <div className="landscape-warning">
@@ -25,7 +28,9 @@ export default function App() {
         <Route path="/:museumId/on-site" element={<OnSiteGuide />} />
         <Route path="/:museumId/on-site/explore" element={<ExploreMode />} />
         <Route path="/:museumId/on-site/route" element={<SmartRoute />} />
+        <Route path="/:museumId/exhibit/:exhibitId" element={<ExhibitDetail />} />
       </Routes>
     </HashRouter>
+    </GuidePreferenceProvider>
   );
 }

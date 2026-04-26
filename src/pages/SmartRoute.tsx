@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getMuseumById } from '../data';
-import type { Route } from '../data/types';
+import type { Route, Exhibit } from '../data/types';
 import { useSnapScroll } from '../hooks/useSnapScroll';
+import { useNestedScroll } from '../hooks/useNestedScroll';
 import PageIndicator from '../components/PageIndicator';
 import ExhibitCard from '../components/ExhibitCard';
 import TimeSelector from '../components/TimeSelector';
@@ -41,11 +42,13 @@ function RouteGuide({ museum, route, onBack }: {
   const allExhibits = [...museum.highlights, ...museum.hiddenGems];
   const routeExhibits = route.stops
     .map((stop) => allExhibits.find((e) => e.id === stop.exhibitId))
-    .filter(Boolean);
+    .filter((e): e is Exhibit => !!e);
 
   // Pages: overview + design thought + exhibits + ending
   const totalPages = 2 + routeExhibits.length + 1;
   const { containerRef, currentPage, scrollToPage } = useSnapScroll(totalPages);
+  const { scrollRef: overviewScrollRef, scrollProps: overviewScrollProps } = useNestedScroll();
+  const { scrollRef: designScrollRef, scrollProps: designScrollProps } = useNestedScroll();
 
   // Generate page titles
   const pageTitles = [
@@ -66,7 +69,7 @@ function RouteGuide({ museum, route, onBack }: {
         {/* Page 0: Route overview */}
         <div className="snap-page" data-page-index={0}>
           <div className="page-content" />
-          <div className="text-scroll-area">
+          <div ref={overviewScrollRef} className="text-scroll-area" {...overviewScrollProps}>
             <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
               <span className="text-2xl mb-2 block">🗺</span>
               <h2 className="font-serif text-xl font-bold text-brown mb-2">{route.durationLabel}</h2>
@@ -81,7 +84,7 @@ function RouteGuide({ museum, route, onBack }: {
         {/* Page 1: Design thought */}
         <div className="snap-page" data-page-index={1}>
           <div className="page-content" />
-          <div className="text-scroll-area flex flex-col justify-center min-h-[70vh]">
+          <div ref={designScrollRef} className="text-scroll-area flex flex-col justify-center min-h-[70vh]" {...designScrollProps}>
             <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
               <span className="text-2xl mb-3 block">💡</span>
               <h2 className="font-serif text-xl font-bold text-brown mb-3">设计思路</h2>
@@ -100,14 +103,13 @@ function RouteGuide({ museum, route, onBack }: {
         {/* Exhibit pages */}
         {routeExhibits.map((exhibit, i) => {
           if (!exhibit) return null;
-          const stop = route.stops[i];
           return (
             <ExhibitCard
               key={exhibit.id}
               exhibit={exhibit}
               index={2 + i}
               total={totalPages}
-              label={`第 ${stop?.order || i + 1} 站 · 建议 ${stop?.stayMinutes || '?'}分钟`}
+              museumId={museum.id}
             />
           );
         })}

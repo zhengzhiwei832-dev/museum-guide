@@ -2,12 +2,14 @@ import { useParams, Navigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getMuseumById } from '../data';
 import { useSnapScroll } from '../hooks/useSnapScroll';
+import { useNestedScroll } from '../hooks/useNestedScroll';
 import PageIndicator from '../components/PageIndicator';
 import ExhibitCard from '../components/ExhibitCard';
 
 export default function ExploreMode() {
   const { museumId } = useParams<{ museumId: string }>();
   const museum = getMuseumById(museumId || '');
+  const { scrollRef, scrollProps } = useNestedScroll();
 
   if (!museum) return <Navigate to="/" replace />;
 
@@ -32,17 +34,22 @@ export default function ExploreMode() {
 
       <PageIndicator total={totalPages} current={currentPage} onDotClick={scrollToPage} pageTitles={pageTitles} />
         {/* Floor map page */}
-        <div className="snap-page" data-page-index={0}>
+        <div className="snap-page relative" data-page-index={0}>
+          {/* Ambient Background */}
+          <div className="ambient-background" />
+
           <div className="page-content" />
-          <div className="text-scroll-area">
-            <motion.h2
+          <div ref={scrollRef} className="exhibit-content-scroll" {...scrollProps}>
+            {/* Title Section */}
+            <motion.div
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="font-serif text-xl font-bold text-brown mb-3"
+              className="title-block mb-5"
             >
-              博物馆导览
-            </motion.h2>
+              <h2 className="exhibit-title text-xl">博物馆导览</h2>
+            </motion.div>
+
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -83,7 +90,7 @@ export default function ExploreMode() {
             exhibit={exhibit}
             index={1 + i}
             total={totalPages}
-            label={i < museum.highlights.length ? '必看展品' : '冷门宝藏'}
+            museumId={museum.id}
           />
         ))}
 

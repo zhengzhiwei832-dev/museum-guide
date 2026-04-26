@@ -2,6 +2,7 @@ import { useParams, Navigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getMuseumById } from '../data';
 import { useSnapScroll } from '../hooks/useSnapScroll';
+import { useNestedScroll } from '../hooks/useNestedScroll';
 import PageIndicator from '../components/PageIndicator';
 import ExhibitCard from '../components/ExhibitCard';
 import InfoBlock from '../components/InfoBlock';
@@ -52,7 +53,7 @@ export default function PreTripGuide() {
             exhibit={exhibit}
             index={3 + i}
             total={totalPages}
-            label={i < museum.highlights.length ? '必看展品' : '冷门宝藏'}
+            museumId={museum.id}
           />
         ))}
 
@@ -73,7 +74,7 @@ function CoverPage({ museum, index }: { museum: ReturnType<typeof getMuseumById>
         <img
           src={museum.coverImage}
           alt={museum.name}
-          loading="lazy"
+          loading="eager"
           decoding="async"
           onLoad={() => setImageLoaded(true)}
           className={`w-full h-full object-cover transition-opacity duration-700 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
@@ -98,19 +99,25 @@ function CoverPage({ museum, index }: { museum: ReturnType<typeof getMuseumById>
 function PracticalInfoPage({ museum, index }: { museum: ReturnType<typeof getMuseumById>; index: number }) {
   if (!museum) return null;
   const info = museum.practicalInfo;
+  const { scrollRef, scrollProps } = useNestedScroll();
 
   return (
-    <div className="snap-page" data-page-index={index}>
+    <div className="snap-page relative" data-page-index={index}>
+      {/* Ambient Background */}
+      <div className="ambient-background" />
+
       <div className="page-content" />
-      <div className="text-scroll-area">
-        <motion.h2
+      <div ref={scrollRef} className="exhibit-content-scroll" {...scrollProps}>
+        {/* Title Section */}
+        <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="font-serif text-xl font-bold text-brown mb-5"
+          className="title-block mb-6"
         >
-          出行必备信息
-        </motion.h2>
+          <h2 className="exhibit-title text-xl">出行必备信息</h2>
+        </motion.div>
+
         <InfoBlock
           items={[
             { icon: '🎫', title: '门票价格', content: info.ticketPrice },
@@ -122,7 +129,7 @@ function PracticalInfoPage({ museum, index }: { museum: ReturnType<typeof getMus
         {info.tips.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity:1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.3 }}
             className="mt-5 p-4 rounded-xl bg-accent/5 border border-accent/10"
           >
@@ -144,19 +151,25 @@ function PracticalInfoPage({ museum, index }: { museum: ReturnType<typeof getMus
 
 function FloorMapPage({ museum, index }: { museum: ReturnType<typeof getMuseumById>; index: number }) {
   if (!museum) return null;
+  const { scrollRef, scrollProps } = useNestedScroll();
 
   return (
-    <div className="snap-page" data-page-index={index}>
+    <div className="snap-page relative" data-page-index={index}>
+      {/* Ambient Background */}
+      <div className="ambient-background" />
+
       <div className="page-content" />
-      <div className="text-scroll-area">
-        <motion.h2
+      <div ref={scrollRef} className="exhibit-content-scroll" {...scrollProps}>
+        {/* Title Section */}
+        <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="font-serif text-xl font-bold text-brown mb-3"
+          className="title-block mb-5"
         >
-          博物馆导览
-        </motion.h2>
+          <h2 className="exhibit-title text-xl">博物馆导览</h2>
+        </motion.div>
+
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}

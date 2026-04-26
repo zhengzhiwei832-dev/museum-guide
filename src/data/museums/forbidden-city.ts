@@ -1,4 +1,6 @@
 import type { Museum } from '../types';
+import { fcPopularGuides } from '../guides/popular/forbidden-city';
+import { fcEnthusiastGuides } from '../guides/enthusiast/forbidden-city';
 
 export const forbiddenCity: Museum = {
   id: 'forbidden-city',
@@ -59,6 +61,8 @@ export const forbiddenCity: Museum = {
     {
       id: 'fc-h1',
       name: '清明上河图',
+      popularGuide: fcPopularGuides['fc-h1'],
+      enthusiastGuide: fcEnthusiastGuides['fc-h1'],
       image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Along_the_River_During_the_Qingming_Festival_%28Qing_Court_Version%29.jpg/1280px-Along_the_River_During_the_Qingming_Festival_%28Qing_Court_Version%29.jpg',
       period: '北宋（约1085-1145年）',
       location: '武英殿书画馆（不定期展出）',
@@ -70,6 +74,8 @@ export const forbiddenCity: Museum = {
     {
       id: 'fc-h2',
       name: '千里江山图',
+      popularGuide: fcPopularGuides['fc-h2'],
+      enthusiastGuide: fcEnthusiastGuides['fc-h2'],
       image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Wang_Ximeng._A_Thousand_Li_of_Rivers_and_Mountains._%28Complete%2C_51.3x1191.5_cm%29._1113._Palace_museum%2C_Beijing.jpg/1280px-Wang_Ximeng._A_Thousand_Li_of_Rivers_and_Mountains._%28Complete%2C_51.3x1191.5_cm%29._1113._Palace_museum%2C_Beijing.jpg',
       period: '北宋（1113年）',
       location: '武英殿书画馆（不定期展出）',
@@ -81,6 +87,8 @@ export const forbiddenCity: Museum = {
     {
       id: 'fc-h3',
       name: '金瓯永固杯',
+      popularGuide: fcPopularGuides['fc-h3'],
+      enthusiastGuide: fcEnthusiastGuides['fc-h3'],
       image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/%E9%87%91%E7%93%AF%E6%B0%B8%E5%9B%BA%E6%9D%AF.jpg/1280px-%E9%87%91%E7%93%AF%E6%B0%B8%E5%9B%BA%E6%9D%AF.jpg',
       period: '清乾隆年间（1740年）',
       location: '珍宝馆',
@@ -91,6 +99,8 @@ export const forbiddenCity: Museum = {
     {
       id: 'fc-h4',
       name: '大禹治水图玉山',
+      popularGuide: fcPopularGuides['fc-h4'],
+      enthusiastGuide: fcEnthusiastGuides['fc-h4'],
       image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Jade_Mountain_Illustrating_the_Taming_of_the_Waters_by_the_Great_Yu_01.jpg/1280px-Jade_Mountain_Illustrating_the_Taming_of_the_Waters_by_the_Great_Yu_01.jpg',
       period: '清乾隆年间（1787年）',
       location: '珍宝馆·乐寿堂',
@@ -101,6 +111,8 @@ export const forbiddenCity: Museum = {
     {
       id: 'fc-h5',
       name: '各种釉彩大瓶',
+      popularGuide: fcPopularGuides['fc-h5'],
+      enthusiastGuide: fcEnthusiastGuides['fc-h5'],
       image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/%E5%90%84%E7%A7%8D%E9%87%89%E5%BD%A9%E5%A4%A7%E7%93%B6.jpg/1280px-%E5%90%84%E7%A7%8D%E9%87%89%E5%BD%A9%E5%A4%A7%E7%93%B6.jpg',
       period: '清乾隆年间',
       location: '陶瓷馆',
@@ -111,6 +123,8 @@ export const forbiddenCity: Museum = {
     {
       id: 'fc-h6',
       name: '郎世宁《百骏图》',
+      popularGuide: fcPopularGuides['fc-h6'],
+      enthusiastGuide: fcEnthusiastGuides['fc-h6'],
       image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Giuseppe_Castiglione_One_Hundred_Horses.jpg/1280px-Giuseppe_Castiglione_One_Hundred_Horses.jpg',
       period: '清雍正年间（1728年）',
       location: '武英殿书画馆（不定期展出）',
@@ -122,6 +136,8 @@ export const forbiddenCity: Museum = {
     {
       id: 'fc-h7',
       name: '铜镀金写字人钟',
+      popularGuide: fcPopularGuides['fc-h7'],
+      enthusiastGuide: fcEnthusiastGuides['fc-h7'],
       image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Musical_automaton_clock_with_rotating_glass_columns_and_eight_dolphins%2C_presented_by_Lord_Macartney_to_the_Qianlong_emperor%2C_made_in_London%2C_1780-1790_-_British_Museum_-_DSC01279.jpg/1280px-thumbnail.jpg',
       period: '18世纪 英国制造',
       location: '钟表馆·奉先殿',
@@ -132,6 +148,8 @@ export const forbiddenCity: Museum = {
     {
       id: 'fc-h8',
       name: '九龙壁',
+      popularGuide: fcPopularGuides['fc-h8'],
+      enthusiastGuide: fcEnthusiastGuides['fc-h8'],
       image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Nine-Dragon_Wall%2C_Forbidden_City%2C_Beijing.jpg/1280px-Nine-Dragon_Wall%2C_Forbidden_City%2C_Beijing.jpg',
       period: '清乾隆三十七年（1772年）',
       location: '东区·宁寿宫前',
@@ -145,6 +163,8 @@ export const forbiddenCity: Museum = {
     {
       id: 'fc-g1',
       name: '倦勤斋通景画',
+      popularGuide: fcPopularGuides['fc-g1'],
+      enthusiastGuide: fcEnthusiastGuides['fc-g1'],
       image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Forbidden_City_-_Juanqin_Studio_01.jpg/1280px-Forbidden_City_-_Juanqin_Studio_01.jpg',
       period: '清乾隆年间',
       location: '东区·宁寿宫花园（倦勤斋）',
@@ -154,6 +174,8 @@ export const forbiddenCity: Museum = {
     {
       id: 'fc-g2',
       name: '符望阁漆纱彩绘夹纱裱糊',
+      popularGuide: fcPopularGuides['fc-g2'],
+      enthusiastGuide: fcEnthusiastGuides['fc-g2'],
       image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/National_Palace_Museum%2C_Beijing_%2810553879994%29.jpg/1280px-National_Palace_Museum%2C_Beijing_%2810553879994%29.jpg',
       period: '清乾隆年间',
       location: '东区·宁寿宫花园（符望阁）',
@@ -163,6 +185,8 @@ export const forbiddenCity: Museum = {
     {
       id: 'fc-g3',
       name: '延禧宫灵沼轩（水晶宫）',
+      popularGuide: fcPopularGuides['fc-g3'],
+      enthusiastGuide: fcEnthusiastGuides['fc-g3'],
       image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Yanxi_Gong_-_Lingzhao_Xuan_%28Crystal_Palace%29.jpg/1280px-Yanxi_Gong_-_Lingzhao_Xuan_%28Crystal_Palace%29.jpg',
       period: '清末宣统年间（未完工）',
       location: '东区·延禧宫',
@@ -172,6 +196,8 @@ export const forbiddenCity: Museum = {
     {
       id: 'fc-g4',
       name: '角楼',
+      popularGuide: fcPopularGuides['fc-g4'],
+      enthusiastGuide: fcEnthusiastGuides['fc-g4'],
       image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Corner_Tower_of_Forbidden_City_20210807.jpg/1280px-Corner_Tower_of_Forbidden_City_20210807.jpg',
       period: '明永乐年间（1420年）',
       location: '故宫四角（城墙外即可观赏）',

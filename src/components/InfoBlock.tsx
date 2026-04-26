@@ -19,9 +19,9 @@ export default function InfoBlock({ items }: InfoBlockProps) {
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35, delay: i * 0.08 }}
-          className="flex gap-3"
+          className="flex gap-3 items-start"
         >
-          <span className="text-lg flex-shrink-0 mt-0.5">{item.icon}</span>
+          <span className="text-xl flex-shrink-0 leading-none pt-0.5">{item.icon}</span>
           <div className="flex-1 min-w-0">
             <h4 className="text-sm font-semibold text-brown mb-1">{item.title}</h4>
             <p className="text-sm leading-relaxed text-brown-light whitespace-pre-line">{item.content}</p>

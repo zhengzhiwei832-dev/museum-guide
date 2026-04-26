@@ -16,10 +16,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-b from-brown/30 via-brown/10 to-cream" />
         <div className="absolute inset-0"
           style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?w=1200&q=80)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center 30%',
-            filter: 'brightness(0.7) saturate(0.8)',
+            background: 'linear-gradient(135deg, #5d4e37 0%, #3d2c23 50%, #2a1f18 100%)',
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-cream via-cream/30 to-transparent" />

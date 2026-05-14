@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useParams, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getExhibitById, getMuseumById } from '../data';
+import { resolveImageUrl } from '../utils/imageUrl';
 import { useGuidePreference } from '../context/GuidePreferenceContext';
 import type { GuideMode } from '../context/GuidePreferenceContext';
 import GuideModeTabs from '../components/GuideModeTabs';
@@ -57,7 +58,7 @@ export default function ExhibitDetail() {
       >
         {!imageLoaded && <div className="shimmer w-full h-full absolute inset-0" />}
         <motion.img
-          src={exhibit.image}
+          src={resolveImageUrl(exhibit.image)}
           alt={exhibit.name}
           loading="eager"
           onLoad={() => setImageLoaded(true)}
@@ -126,7 +127,7 @@ export default function ExhibitDetail() {
 
       {/* Image Viewer */}
       <ImageViewer
-        src={exhibit.image}
+        src={resolveImageUrl(exhibit.image)}
         alt={exhibit.name}
         isOpen={isViewerOpen}
         onClose={() => setIsViewerOpen(false)}

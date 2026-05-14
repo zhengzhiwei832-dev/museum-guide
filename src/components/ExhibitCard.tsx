@@ -2,6 +2,7 @@ import { useState, useRef, memo } from 'react';
 import type { Exhibit } from '../data/types';
 import { useGuidePreference } from '../context/GuidePreferenceContext';
 import type { GuideMode } from '../context/GuidePreferenceContext';
+import { resolveImageUrl } from '../utils/imageUrl';
 import ImageViewer from './ImageViewer';
 import GuideModeTabs from './GuideModeTabs';
 import PopularGuideView from './PopularGuideView';
@@ -59,7 +60,7 @@ function ExhibitCard({ exhibit, index, total }: ExhibitCardProps) {
 
           {/* Main Image - 使用 CSS transition */}
           <img
-            src={exhibit.image}
+            src={resolveImageUrl(exhibit.image)}
             alt={exhibit.name}
             loading="lazy"
             decoding="async"
@@ -177,7 +178,7 @@ function ExhibitCard({ exhibit, index, total }: ExhibitCardProps) {
 
       {/* Image Viewer Modal */}
       <ImageViewer
-        src={exhibit.image}
+        src={resolveImageUrl(exhibit.image)}
         alt={exhibit.name}
         isOpen={isViewerOpen}
         onClose={() => setIsViewerOpen(false)}

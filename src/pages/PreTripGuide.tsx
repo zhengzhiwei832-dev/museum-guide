@@ -1,5 +1,6 @@
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { getMuseumById } from '../data';
+import { resolveImageUrl } from '../utils/imageUrl';
 import { useSnapScroll } from '../hooks/useSnapScroll';
 import { useNestedScroll } from '../hooks/useNestedScroll';
 import PageIndicator from '../components/PageIndicator';
@@ -71,7 +72,7 @@ function CoverPage({ museum, index }: { museum: ReturnType<typeof getMuseumById>
       <div className="relative h-[65vh] h-[65dvh] overflow-hidden">
         {!imageLoaded && <div className="shimmer w-full h-full" />}
         <img
-          src={museum.coverImage}
+          src={resolveImageUrl(museum.coverImage)}
           alt={museum.name}
           loading="eager"
           decoding="async"

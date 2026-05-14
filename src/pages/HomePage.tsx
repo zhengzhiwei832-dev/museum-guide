@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { museums } from '../data';
+import { resolveImageUrl } from '../utils/imageUrl';
 import { useState, useRef, useEffect } from 'react';
 import { useGuidePreference } from '../context/GuidePreferenceContext';
 import type { GuideMode } from '../context/GuidePreferenceContext';
@@ -158,7 +159,7 @@ function MuseumCard({ museum, index }: { museum: typeof museums[0]; index: numbe
           <div className="relative aspect-[3/2] overflow-hidden rounded-sm bg-cream-dark">
             {!imageLoaded && <div className="shimmer absolute inset-0" />}
             <img
-              src={museum.coverImage}
+              src={resolveImageUrl(museum.coverImage)}
               alt={museum.name}
               loading="lazy"
               decoding="async"

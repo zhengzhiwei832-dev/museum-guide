@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import type { RouteStop } from '../data/types';
 
 interface RouteTimelineProps {
@@ -9,12 +8,9 @@ export default function RouteTimeline({ stops }: RouteTimelineProps) {
   return (
     <div className="relative pl-10">
       <div className="timeline-line" />
-      {stops.map((stop, i) => (
-        <motion.div
+      {stops.map((stop) => (
+        <div
           key={stop.order}
-          initial={{ opacity: 0, x: -10 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.35, delay: i * 0.06 }}
           className="relative pb-5 last:pb-0"
         >
           <div className="absolute left-[-1.625rem]">
@@ -31,7 +27,7 @@ export default function RouteTimeline({ stops }: RouteTimelineProps) {
               <p className="text-xs text-brown-muted leading-relaxed">{stop.tip}</p>
             )}
           </div>
-        </motion.div>
+        </div>
       ))}
     </div>
   );

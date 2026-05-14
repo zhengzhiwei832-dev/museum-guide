@@ -66,14 +66,11 @@ export default function PopularGuideView({ guide }: Props) {
       <motion.section className="pg-section" variants={itemVariants}>
         <div className="pg-section-header">
           <span className="pg-section-number">03</span>
-          <h3 className="pg-section-title">人物图鉴</h3>
+          <h3 className="pg-section-title">图鉴</h3>
         </div>
         <div className="pg-characters">
           {guide.characters.map((char, i) => (
             <div key={i} className="pg-character-card">
-              <div className="pg-character-avatar">
-                {char.name.charAt(0)}
-              </div>
               <div className="pg-character-info">
                 <div className="pg-character-header">
                   <span className="pg-character-name">{char.name}</span>

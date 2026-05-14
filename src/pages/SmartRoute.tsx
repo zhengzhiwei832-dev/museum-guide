@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { getMuseumById } from '../data';
 import type { Route, Exhibit } from '../data/types';
 import { useSnapScroll } from '../hooks/useSnapScroll';
@@ -20,8 +19,9 @@ export default function SmartRoute() {
   if (!selectedRoute) {
     return (
       <div className="min-h-screen bg-cream">
-        <div className="glass-nav sticky top-0 z-30 flex items-center px-4 py-3 safe-top">
-          <Link to={`/${museum.id}/on-site`} className="text-sm text-brown-muted hover:text-brown transition-colors min-h-[44px] min-w-[44px] flex items-center">← 返回</Link>
+        <div className="glass-nav sticky top-0 z-30 flex items-center justify-between px-4 safe-top">
+          <Link to={`/${museum.id}/on-site`} className="text-sm text-brown-muted hover:text-brown transition-colors h-12 flex items-center">← 返回</Link>
+          <span className="text-sm text-brown-muted truncate max-w-[60%]">{museum.name}</span>
         </div>
         <div>
           <TimeSelector routes={museum.recommendedRoutes} onSelect={setSelectedRoute} />
@@ -60,9 +60,9 @@ function RouteGuide({ museum, route, onBack }: {
 
   return (
     <div ref={containerRef} className="snap-container">
-      <div className="glass-nav fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 safe-top">
-        <button onClick={onBack} className="text-sm text-brown-muted hover:text-brown transition-colors min-h-[44px] min-w-[44px] flex items-center">← 重选时间</button>
-        <span className="text-xs text-brown-muted">{route.durationLabel}</span>
+      <div className="glass-nav fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 safe-top">
+        <button onClick={onBack} className="text-sm text-brown-muted hover:text-brown transition-colors h-12 flex items-center">← 重选时间</button>
+        <span className="text-sm text-brown-muted truncate max-w-[60%]">{route.durationLabel}</span>
       </div>
 
       <PageIndicator total={totalPages} current={currentPage} onDotClick={scrollToPage} pageTitles={pageTitles} />
@@ -70,11 +70,11 @@ function RouteGuide({ museum, route, onBack }: {
         <div className="snap-page" data-page-index={0}>
           <div className="page-content" />
           <div ref={overviewScrollRef} className="text-scroll-area" {...overviewScrollProps}>
-            <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+            <div>
               <span className="text-2xl mb-2 block">🗺</span>
               <h2 className="font-serif text-xl font-bold text-brown mb-2">{route.durationLabel}</h2>
               <p className="text-sm text-brown-light leading-relaxed mb-5">{route.overview}</p>
-            </motion.div>
+            </div>
 
             <h3 className="text-sm font-semibold text-brown mb-3">路线站点</h3>
             <RouteTimeline stops={route.stops} />
@@ -84,19 +84,19 @@ function RouteGuide({ museum, route, onBack }: {
         {/* Page 1: Design thought */}
         <div className="snap-page" data-page-index={1}>
           <div className="page-content" />
-          <div ref={designScrollRef} className="text-scroll-area flex flex-col justify-center min-h-[70vh]" {...designScrollProps}>
-            <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          <div ref={designScrollRef} className="text-scroll-area flex flex-col justify-center" {...designScrollProps}>
+            <div>
               <span className="text-2xl mb-3 block">💡</span>
               <h2 className="font-serif text-xl font-bold text-brown mb-3">设计思路</h2>
               <p className="text-sm text-brown-light leading-relaxed">{route.designThought}</p>
               <div className="mt-5 p-3 rounded-xl bg-accent/5 border border-accent/10">
                 <p className="text-xs text-brown-muted">
-                  共 {route.stops.length} 个站点 · 
-                  建议总用时 {route.stops.reduce((sum, s) => sum + s.stayMinutes, 0)} 分钟 · 
+                  共 {route.stops.length} 个站点 ·
+                  建议总用时 {route.stops.reduce((sum, s) => sum + s.stayMinutes, 0)} 分钟 ·
                   向下滑动查看每个展品的详细介绍
                 </p>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
 
@@ -116,7 +116,7 @@ function RouteGuide({ museum, route, onBack }: {
 
         {/* Ending */}
         <div className="snap-page flex flex-col items-center justify-center px-6 text-center" data-page-index={totalPages - 1}>
-          <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }}>
+          <div>
             <span className="text-4xl mb-4 block">🎉</span>
             <h2 className="font-serif text-xl font-bold text-brown mb-2">路线介绍完毕</h2>
             <p className="text-sm text-brown-muted leading-relaxed max-w-xs mx-auto">
@@ -136,7 +136,7 @@ function RouteGuide({ museum, route, onBack }: {
                 返回首页
               </Link>
             </div>
-          </motion.div>
+          </div>
         </div>
     </div>
   );

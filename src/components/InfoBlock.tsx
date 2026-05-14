@@ -1,5 +1,3 @@
-import { motion } from 'framer-motion';
-
 interface InfoItem {
   icon: string;
   title: string;
@@ -14,11 +12,8 @@ export default function InfoBlock({ items }: InfoBlockProps) {
   return (
     <div className="space-y-4">
       {items.map((item, i) => (
-        <motion.div
+        <div
           key={i}
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, delay: i * 0.08 }}
           className="flex gap-3 items-start"
         >
           <span className="text-xl flex-shrink-0 leading-none pt-0.5">{item.icon}</span>
@@ -26,7 +21,7 @@ export default function InfoBlock({ items }: InfoBlockProps) {
             <h4 className="text-sm font-semibold text-brown mb-1">{item.title}</h4>
             <p className="text-sm leading-relaxed text-brown-light whitespace-pre-line">{item.content}</p>
           </div>
-        </motion.div>
+        </div>
       ))}
     </div>
   );

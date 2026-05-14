@@ -61,10 +61,6 @@ export default function EnthusiastGuideView({ guide }: Props) {
             <span className="eg-archive-value">{guide.archive.dimensions}</span>
           </div>
           <div className="eg-archive-row">
-            <span className="eg-archive-label">现藏地</span>
-            <span className="eg-archive-value">{guide.archive.collection}</span>
-          </div>
-          <div className="eg-archive-row">
             <span className="eg-archive-label">委托方</span>
             <span className="eg-archive-value">{guide.archive.patron}</span>
           </div>

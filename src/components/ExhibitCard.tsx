@@ -2,7 +2,6 @@ import { useState, useRef, memo } from 'react';
 import type { Exhibit } from '../data/types';
 import { useGuidePreference } from '../context/GuidePreferenceContext';
 import type { GuideMode } from '../context/GuidePreferenceContext';
-import { useNestedScroll } from '../hooks/useNestedScroll';
 import ImageViewer from './ImageViewer';
 import GuideModeTabs from './GuideModeTabs';
 import PopularGuideView from './PopularGuideView';
@@ -23,7 +22,6 @@ function ExhibitCard({ exhibit, index, total }: ExhibitCardProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const { mode: globalMode } = useGuidePreference();
   const [localMode, setLocalMode] = useState<GuideMode>(globalMode);
-  const { scrollRef, scrollProps } = useNestedScroll();
 
   const hasPopular = !!exhibit.popularGuide;
   const hasEnthusiast = !!exhibit.enthusiastGuide;
@@ -81,12 +79,8 @@ function ExhibitCard({ exhibit, index, total }: ExhibitCardProps) {
         </div>
       </div>
 
-      {/* Content Scroll Area */}
-      <div
-        ref={scrollRef}
-        className="exhibit-content-scroll"
-        {...scrollProps}
-      >
+      {/* Content Area */}
+      <div className="exhibit-content-scroll">
         {/* Title Section */}
         <div className="title-block">
           <div className="title-divider">
@@ -144,7 +138,7 @@ function ExhibitCard({ exhibit, index, total }: ExhibitCardProps) {
         {/* Guide Mode Selector */}
         {hasGuide && (
           <div>
-            <GuideModeTabs mode={localMode} onChange={setLocalMode} />
+            <GuideModeTabs mode={localMode} onChange={setLocalMode} id={exhibit.id} />
           </div>
         )}
 

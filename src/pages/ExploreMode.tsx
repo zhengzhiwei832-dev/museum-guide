@@ -1,5 +1,4 @@
 import { useParams, Navigate, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { getMuseumById } from '../data';
 import { useSnapScroll } from '../hooks/useSnapScroll';
 import { useNestedScroll } from '../hooks/useNestedScroll';
@@ -27,9 +26,9 @@ export default function ExploreMode() {
 
   return (
     <div ref={containerRef} className="snap-container">
-      <div className="glass-nav fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 safe-top">
-        <Link to={`/${museum.id}/on-site`} className="text-sm text-brown-muted hover:text-brown transition-colors min-h-[44px] min-w-[44px] flex items-center">← 返回</Link>
-        <span className="text-xs text-brown-muted">自由探索 · {museum.name}</span>
+      <div className="glass-nav fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 safe-top">
+        <Link to={`/${museum.id}/on-site`} className="text-sm text-brown-muted hover:text-brown transition-colors h-12 flex items-center">← 返回</Link>
+        <span className="text-sm text-brown-muted truncate max-w-[60%]">自由探索 · {museum.name}</span>
       </div>
 
       <PageIndicator total={totalPages} current={currentPage} onDotClick={scrollToPage} pageTitles={pageTitles} />
@@ -41,30 +40,17 @@ export default function ExploreMode() {
           <div className="page-content" />
           <div ref={scrollRef} className="exhibit-content-scroll" {...scrollProps}>
             {/* Title Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="title-block mb-5"
-            >
+            <div className="title-block mb-5">
               <h2 className="exhibit-title text-xl">博物馆导览</h2>
-            </motion.div>
+            </div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              className="text-sm text-brown-light leading-relaxed mb-5"
-            >
+            <p className="text-sm text-brown-light leading-relaxed mb-5">
               {museum.floorMap.overview}
-            </motion.p>
+            </p>
             <div className="space-y-3">
-              {museum.floorMap.floors.map((floor, i) => (
-                <motion.div
+              {museum.floorMap.floors.map((floor) => (
+                <div
                   key={floor.id}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.35, delay: 0.15 + i * 0.08 }}
                   className="p-4 rounded-xl bg-white/60 border border-brown/5"
                 >
                   <h4 className="text-sm font-semibold text-brown mb-1">{floor.name}</h4>
@@ -74,7 +60,7 @@ export default function ExploreMode() {
                       <span key={zone} className="text-[10px] px-2 py-0.5 bg-cream-dark rounded-full text-brown-muted">{zone}</span>
                     ))}
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
             <div className="flex items-center gap-2 mt-5 text-xs text-accent">
@@ -96,7 +82,7 @@ export default function ExploreMode() {
 
         {/* Ending */}
         <div className="snap-page flex flex-col items-center justify-center px-6 text-center" data-page-index={totalPages - 1}>
-          <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }}>
+          <div>
             <span className="text-4xl mb-4 block">✨</span>
             <h2 className="font-serif text-xl font-bold text-brown mb-2">尽情探索吧</h2>
             <p className="text-sm text-brown-muted leading-relaxed max-w-xs mx-auto">祝你在{museum.name}度过美好时光！</p>
@@ -111,7 +97,7 @@ export default function ExploreMode() {
                 探索其他博物馆
               </Link>
             </div>
-          </motion.div>
+          </div>
         </div>
     </div>
   );

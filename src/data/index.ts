@@ -1,9 +1,11 @@
 import { forbiddenCity } from './museums/forbidden-city';
 import { uffizi } from './museums/uffizi';
 import { britishMuseum } from './museums/british-museum';
+import { shaanxiHistory } from './museums/shaanxi-history';
+import { sanxingdui } from './museums/sanxingdui';
 import type { Museum } from './types';
 
-export const museums: Museum[] = [forbiddenCity, uffizi, britishMuseum];
+export const museums: Museum[] = [forbiddenCity, shaanxiHistory, sanxingdui, uffizi, britishMuseum];
 
 export function getMuseumById(id: string): Museum | undefined {
   return museums.find((m) => m.id === id);

@@ -40,14 +40,14 @@ export default function ExhibitDetail() {
   return (
     <div className="exhibit-detail-page">
       {/* 毛玻璃导航栏 */}
-      <div className="glass-nav fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 safe-top">
+      <div className="glass-nav fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 safe-top">
         <button
           onClick={handleBack}
-          className="text-sm text-brown-muted hover:text-brown transition-colors min-h-[44px] min-w-[44px] flex items-center"
+          className="text-sm text-brown-muted hover:text-brown transition-colors h-12 flex items-center"
         >
           ← 返回
         </button>
-        <span className="text-xs text-brown-muted truncate max-w-[60%]">{museum.name}</span>
+        <span className="text-sm text-brown-muted truncate max-w-[60%]">{museum.name}</span>
       </div>
 
       {/* 封面图 */}
@@ -103,7 +103,7 @@ export default function ExhibitDetail() {
       )}
 
       {/* 内容区 */}
-      <div className="exhibit-detail-content">
+      <div className="exhibit-detail-content pb-20">
         {hasGuide ? (
           <>
             {localMode === 'popular' && hasPopular && (

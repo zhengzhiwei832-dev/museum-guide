@@ -4,17 +4,22 @@ import type { GuideMode } from '../context/GuidePreferenceContext';
 interface Props {
   mode: GuideMode;
   onChange: (mode: GuideMode) => void;
+  id?: string;
 }
 
-export default function GuideModeTabs({ mode, onChange }: Props) {
+export default function GuideModeTabs({ mode, onChange, id }: Props) {
+  const pillLayoutId = id ? `guideModePillCompact-${id}` : 'guideModePillCompact';
+
   return (
     <div className="guide-mode-selector-compact">
       <div className="guide-mode-tabs-compact">
         {/* Background pill that slides */}
         <motion.div
           className="guide-mode-pill-compact"
-          layoutId="guideModePillCompact"
-          initial={false}
+          layoutId={pillLayoutId}
+          initial={{
+            x: mode === 'popular' ? 0 : '100%',
+          }}
           animate={{
             x: mode === 'popular' ? 0 : '100%',
           }}

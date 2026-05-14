@@ -11,8 +11,9 @@ export default function ModeSelect() {
   return (
     <div className="min-h-screen bg-cream flex flex-col">
       {/* Back nav */}
-      <div className="glass-nav sticky top-0 z-30 flex items-center px-4 py-3 safe-top">
-        <Link to="/" className="text-sm text-brown-muted hover:text-brown transition-colors min-h-[44px] min-w-[44px] flex items-center">← 返回</Link>
+      <div className="glass-nav sticky top-0 z-30 flex items-center justify-between px-4 safe-top">
+        <Link to="/" className="text-sm text-brown-muted hover:text-brown transition-colors h-12 flex items-center">← 返回</Link>
+        <span className="text-sm text-brown-muted truncate max-w-[60%]">{museum.name}</span>
       </div>
 
       {/* Museum header */}

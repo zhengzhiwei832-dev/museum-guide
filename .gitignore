@@ -40,3 +40,9 @@ lerna-debug.log*
 *.py
 check_*.html
 debug_*.html
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example

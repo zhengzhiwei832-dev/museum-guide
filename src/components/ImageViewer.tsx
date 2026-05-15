@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback, useEffect, useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface ImageViewerProps {
@@ -21,13 +21,15 @@ export default function ImageViewer({ src, alt, isOpen, onClose }: ImageViewerPr
   const touchStartX = useRef(0);
   const swipeStartTime = useRef(0);
 
-  // Reset state when opening
-  useEffect(() => {
+  // Reset zoom state when opening the viewer.
+  /* eslint-disable react-hooks/set-state-in-effect */
+  useLayoutEffect(() => {
     if (isOpen) {
       setScale(1);
       setPosition({ x: 0, y: 0 });
     }
   }, [isOpen]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   // Handle close on escape key
   useEffect(() => {

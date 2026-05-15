@@ -12,12 +12,11 @@ export default function PreTripGuide() {
   const { museumId } = useParams<{ museumId: string }>();
   const museum = getMuseumById(museumId || '');
 
-  if (!museum) return <Navigate to="/" replace />;
-
-  const allExhibits = [...museum.highlights, ...museum.hiddenGems];
-  // Pages: cover + practical info + floor map + exhibits (one per page) + ending
+  const allExhibits = museum ? [...museum.highlights, ...museum.hiddenGems] : [];
   const totalPages = 3 + allExhibits.length + 1;
   const { containerRef, currentPage, scrollToPage } = useSnapScroll(totalPages);
+
+  if (!museum) return <Navigate to="/" replace />;
 
   // Generate page titles
   const pageTitles = [
@@ -96,10 +95,9 @@ function CoverPage({ museum, index }: { museum: ReturnType<typeof getMuseumById>
   );
 }
 
-function PracticalInfoPage({ museum, index }: { museum: ReturnType<typeof getMuseumById>; index: number }) {
-  if (!museum) return null;
-  const info = museum.practicalInfo;
+function PracticalInfoPage({ museum, index }: { museum: NonNullable<ReturnType<typeof getMuseumById>>; index: number }) {
   const { scrollRef, scrollProps } = useNestedScroll();
+  const info = museum.practicalInfo;
 
   return (
     <div className="snap-page relative" data-page-index={index}>
@@ -141,17 +139,14 @@ function PracticalInfoPage({ museum, index }: { museum: ReturnType<typeof getMus
   );
 }
 
-function FloorMapPage({ museum, index }: { museum: ReturnType<typeof getMuseumById>; index: number }) {
-  if (!museum) return null;
-  const { scrollRef, scrollProps } = useNestedScroll();
-
+function FloorMapPage({ museum, index }: { museum: NonNullable<ReturnType<typeof getMuseumById>>; index: number }) {
   return (
     <div className="snap-page relative" data-page-index={index}>
       {/* Ambient Background */}
       <div className="ambient-background" />
 
       <div className="page-content" />
-      <div ref={scrollRef} className="exhibit-content-scroll" {...scrollProps}>
+      <div className="px-7 relative z-[1]">
         {/* Title Section */}
         <div className="title-block mb-5">
           <h2 className="exhibit-title text-xl">博物馆导览</h2>
@@ -182,8 +177,7 @@ function FloorMapPage({ museum, index }: { museum: ReturnType<typeof getMuseumBy
   );
 }
 
-function EndingPage({ museum, index }: { museum: ReturnType<typeof getMuseumById>; index: number }) {
-  if (!museum) return null;
+function EndingPage({ museum, index }: { museum: NonNullable<ReturnType<typeof getMuseumById>>; index: number }) {
 
   return (
     <div className="snap-page flex flex-col items-center justify-center px-6 text-center" data-page-index={index}>

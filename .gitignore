@@ -34,3 +34,9 @@ lerna-debug.log*
 *.sln
 *.sw?
 .vercel
+
+# Debug / verification files
+*.png
+*.py
+check_*.html
+debug_*.html

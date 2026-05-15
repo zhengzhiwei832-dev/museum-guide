@@ -71,7 +71,7 @@ export const britishMuseum: Museum = {
       nameOriginal: 'Parthenon Marbles (Elgin Marbles)',
       popularGuide: bmPopularGuides['bm-h2'],
       enthusiastGuide: bmEnthusiastGuides['bm-h2'],
-      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Elgin-marbles-jan-2024.jpg/1280px-Elgin-marbles-jan-2024.jpg',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/E22_0401_%2853682912211%29.jpg/1280px-E22_0401_%2853682912211%29.jpg',
       period: '公元前447-432年',
       location: '一楼·18号厅（帕特农厅）',
       description: '帕特农雕塑（也称"额尔金大理石"）原为雅典帕特农神庙的建筑装饰，包括大量浮雕饰带、山形墙雕塑和柱间壁板。饰带上描绘了泛雅典娜节的盛大游行队伍，人物和马匹的雕刻达到了古希腊艺术的巅峰——衣袍褶皱如同真实的布料贴附在身体上，被风吹动的效果栩栩如生。18号厅的空间设计模拟了帕特农神庙的比例。',

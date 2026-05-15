@@ -10,12 +10,11 @@ export default function ExploreMode() {
   const museum = getMuseumById(museumId || '');
   const { scrollRef, scrollProps } = useNestedScroll();
 
-  if (!museum) return <Navigate to="/" replace />;
-
-  const allExhibits = [...museum.highlights, ...museum.hiddenGems];
-  // Pages: floor map + exhibits + ending
+  const allExhibits = museum ? [...museum.highlights, ...museum.hiddenGems] : [];
   const totalPages = 1 + allExhibits.length + 1;
   const { containerRef, currentPage, scrollToPage } = useSnapScroll(totalPages);
+
+  if (!museum) return <Navigate to="/" replace />;
 
   // Generate page titles
   const pageTitles = [

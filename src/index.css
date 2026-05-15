@@ -233,14 +233,6 @@ html, body, #root {
   transform: scale(1);
 }
 
-.theater-image {
-  width: 100%;
-  height: auto;
-  max-height: 50vh;
-  object-fit: contain;
-  display: block;
-}
-
 /* Landscape orientation */
 .exhibit-image-theater.landscape .theater-frame {
   max-width: 600px;
@@ -1649,6 +1641,38 @@ html, body, #root {
   line-height: 1.7;
   color: var(--color-brown-light);
   margin: 0;
+}
+
+/* ============================================
+   EXHIBIT DETAIL PAGE
+   ============================================ */
+
+.exhibit-detail-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--color-cream);
+  display: flex;
+  flex-direction: column;
+}
+
+.exhibit-detail-hero {
+  position: relative;
+  height: 50vh;
+  height: 50dvh;
+  overflow: hidden;
+}
+
+.exhibit-detail-tabs-wrapper {
+  position: sticky;
+  top: calc(3rem + env(safe-area-inset-top, 0px));
+  z-index: 30;
+  background-color: var(--color-cream);
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(61, 44, 35, 0.04);
+}
+
+.exhibit-detail-content {
+  padding: 1rem 1.25rem 5rem;
 }
 
 /* ============================================

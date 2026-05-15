@@ -14,22 +14,24 @@ const GuidePreferenceContext = createContext<GuidePreferenceContextType>({
   modeLabel: '大众版',
 });
 
-const STORAGE_KEY = 'museum-guide-mode';
-
 export function GuidePreferenceProvider({ children }: { children: ReactNode }) {
   const [mode, setModeState] = useState<GuideMode>(() => {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      const stored = localStorage.getItem('museum-guide-mode');
       if (stored === 'popular' || stored === 'enthusiast') return stored;
-    } catch {}
+    } catch {
+      // localStorage not available
+    }
     return 'popular';
   });
 
   const setMode = (newMode: GuideMode) => {
     setModeState(newMode);
     try {
-      localStorage.setItem(STORAGE_KEY, newMode);
-    } catch {}
+      localStorage.setItem('museum-guide-mode', newMode);
+    } catch {
+      // localStorage not available
+    }
   };
 
   const modeLabel = mode === 'popular' ? '大众版' : '爱好者版';
@@ -41,6 +43,7 @@ export function GuidePreferenceProvider({ children }: { children: ReactNode }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useGuidePreference() {
   return useContext(GuidePreferenceContext);
 }

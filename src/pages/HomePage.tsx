@@ -2,9 +2,10 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { museums } from '../data';
 import { resolveImageUrl } from '../utils/imageUrl';
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { useGuidePreference } from '../context/GuidePreferenceContext';
 import type { GuideMode } from '../context/GuidePreferenceContext';
+import { useInView } from '../hooks/useInView';
 
 export default function HomePage() {
   const { mode, setMode } = useGuidePreference();
@@ -110,31 +111,6 @@ export default function HomePage() {
       )}
     </div>
   );
-}
-
-function useInView<T extends HTMLElement>(margin = '-80px') {
-  const ref = useRef<T>(null);
-  const [isInView, setIsInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: margin }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [margin]);
-
-  return { ref, isInView };
 }
 
 function MuseumCard({ museum, index }: { museum: typeof museums[0]; index: number }) {

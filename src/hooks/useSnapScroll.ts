@@ -35,30 +35,32 @@ export function useSnapScroll(totalPages: number) {
     const container = containerRef.current;
     if (!container) return;
 
-    // Use IntersectionObserver to track current page
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-            const index = Number(entry.target.getAttribute('data-page-index'));
-            if (!isNaN(index)) {
-              updateCurrentPage(index);
-            }
-          }
-        });
-      },
-      {
-        root: container,
-        threshold: [0.5, 0.75],
-        rootMargin: '0px'
-      }
-    );
+    let scrollRafId: number;
+    const handleScroll = () => {
+      cancelAnimationFrame(scrollRafId);
+      scrollRafId = requestAnimationFrame(() => {
+        const pageHeight = container.clientHeight;
+        const scrollTop = container.scrollTop;
+        const maxScroll = container.scrollHeight - pageHeight;
 
-    const pages = container.querySelectorAll('.snap-page');
-    pages.forEach((page) => observer.observe(page));
+        // At the very bottom, always show the last page
+        if (maxScroll > 0 && scrollTop >= maxScroll - 2) {
+          updateCurrentPage(totalPages - 1);
+          return;
+        }
+
+        const index = Math.round(scrollTop / pageHeight);
+        updateCurrentPage(Math.max(0, Math.min(index, totalPages - 1)));
+      });
+    };
+
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    // Initialise on mount in case we are not at page 0
+    handleScroll();
 
     return () => {
-      observer.disconnect();
+      container.removeEventListener('scroll', handleScroll);
+      cancelAnimationFrame(scrollRafId);
       if (rafId.current !== null) {
         cancelAnimationFrame(rafId.current);
       }

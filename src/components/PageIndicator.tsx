@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 
 interface PageIndicatorProps {
   total: number;
@@ -13,9 +13,12 @@ export default function PageIndicator({ total, current, onDotClick, pageTitles }
   const longPressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const prevCurrent = useRef(current);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const touchStartedOutside = useRef(false);
 
-  // Hide indicator on page change, show compact after delay
-  useEffect(() => {
+  // Collapse and temporarily hide the indicator when the active page changes.
+  /* eslint-disable react-hooks/set-state-in-effect */
+  useLayoutEffect(() => {
     if (current !== prevCurrent.current) {
       // Hide immediately on page change
       setIsExpanded(false);
@@ -29,6 +32,7 @@ export default function PageIndicator({ total, current, onDotClick, pageTitles }
       }, 1500);
     }
   }, [current]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   // Click to expand/collapse
   const handleClick = () => {
@@ -56,6 +60,48 @@ export default function PageIndicator({ total, current, onDotClick, pageTitles }
     }
   };
 
+  // Close expanded panel when clicking/touching outside
+  useEffect(() => {
+    if (!isExpanded) return;
+
+    const isOutsideByCoords = (clientX: number, clientY: number): boolean => {
+      if (!containerRef.current) return false;
+      const rect = containerRef.current.getBoundingClientRect();
+      return clientX < rect.left || clientX > rect.right ||
+             clientY < rect.top || clientY > rect.bottom;
+    };
+
+    const handleMouseDown = (e: MouseEvent) => {
+      const target = e.target as Node;
+      if (containerRef.current && !containerRef.current.contains(target)) {
+        setIsExpanded(false);
+      }
+    };
+
+    const handleTouchStart = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      if (!touch) return;
+      touchStartedOutside.current = isOutsideByCoords(touch.clientX, touch.clientY);
+      if (touchStartedOutside.current) {
+        setIsExpanded(false);
+      }
+    };
+
+    const handleTouchMove = () => {
+      if (!touchStartedOutside.current) return;
+      setIsExpanded(false);
+    };
+
+    document.addEventListener('mousedown', handleMouseDown);
+    document.addEventListener('touchstart', handleTouchStart);
+    document.addEventListener('touchmove', handleTouchMove);
+    return () => {
+      document.removeEventListener('mousedown', handleMouseDown);
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, [isExpanded]);
+
   // Cleanup timers
   useEffect(() => {
     return () => {
@@ -67,7 +113,8 @@ export default function PageIndicator({ total, current, onDotClick, pageTitles }
   if (total <= 1) return null;
 
   return (
-    <div 
+    <div
+      ref={containerRef}
       className={`page-indicator ${isExpanded ? 'expanded' : ''} ${!isVisible ? 'hidden' : ''}`}
       onClick={handleClick}
       onTouchStart={handleTouchStart}
